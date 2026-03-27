@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Forma Pilates{% endblock %}</title>
 
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Inter + Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -17,11 +17,14 @@
             theme: {
                 extend: {
                     colors: {
-                        navy: '#21295C',
-                        'dark-blue': '#065A82',
-                        'med-blue': '#1C7293',
-                        teal: '#028090',
-                        'bright-teal': '#00A896',
+                        'stone-50': '#FAFAF9',
+                        'stone-100': '#F5F4F0',
+                        'stone-200': '#E8E5E0',
+                        'stone-400': '#9C9490',
+                        'stone-600': '#6B6663',
+                        'stone-900': '#1A1A1A',
+                        'sage': '#4A6741',
+                        'gold': '#8B7355',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -43,21 +46,16 @@
 
     {% block head %}{% endblock %}
 </head>
-<body class="font-sans bg-gray-50 text-gray-900 antialiased">
+<body class="font-sans bg-white text-stone-900 antialiased">
 
     <!-- Navigation -->
-    <nav class="bg-navy shadow-lg sticky top-0 z-50" x-data="{ mobileOpen: false, profileOpen: false }">
+    <nav class="bg-white border-b border-stone-200 sticky top-0 z-50" x-data="{ mobileOpen: false, profileOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
 
                 <!-- Logo -->
                 <a href="/" class="flex items-center gap-2 flex-shrink-0">
-                    <div class="w-8 h-8 bg-bright-teal rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-white font-serif text-xl font-bold tracking-wide">FORMA</span>
+                    <span class="text-stone-900 font-serif text-xl font-bold tracking-widest">FORMA</span>
                 </a>
 
                 <!-- Desktop Nav Links (logged in) -->
@@ -78,43 +76,47 @@
                     <!-- Profile Dropdown -->
                     <div class="relative" x-data="{ open: false }">
                         <button @click="open = !open" @click.outside="open = false"
-                            class="flex items-center gap-2 p-1.5 rounded-xl hover:bg-dark-blue transition-colors">
-                            <img src="{{ current_user.avatar_url or 'https://ui-avatars.com/api/?name=' + current_user.full_name.replace(' ', '+') + '&background=028090&color=fff&size=64' }}"
-                                class="w-8 h-8 rounded-lg object-cover"
+                            class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-stone-100 transition-colors">
+                            <img src="{{ current_user.avatar_url or 'https://ui-avatars.com/api/?name=' + current_user.full_name.replace(' ', '+') + '&background=1A1A1A&color=fff&size=64' }}"
+                                class="w-8 h-8 rounded-lg object-cover border border-stone-200"
                                 alt="{{ current_user.full_name }}">
                             <div class="hidden sm:block text-left">
-                                <div class="text-white text-sm font-medium leading-none">{{ current_user.full_name.split()[0] }}</div>
+                                <div class="text-stone-900 text-sm font-medium leading-none">{{ current_user.full_name.split()[0] }}</div>
                                 <div class="mt-0.5">
                                     {% if current_user.subscription_tier == 'premium' %}
                                     <span class="tier-badge-premium text-xs">Premium</span>
                                     {% elif current_user.subscription_tier == 'basic' %}
                                     <span class="tier-badge-basic text-xs">Basic</span>
                                     {% else %}
-                                    <span class="text-gray-400 text-xs">Free</span>
+                                    <span class="text-stone-400 text-xs">Free</span>
                                     {% endif %}
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 text-stone-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                             </svg>
                         </button>
 
                         <!-- Dropdown Menu -->
                         <div x-show="open" x-transition
-                            class="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
-                            <div class="px-4 py-3 bg-gray-50 border-b border-gray-100">
-                                <div class="text-sm font-semibold text-gray-800">{{ current_user.full_name }}</div>
-                                <div class="text-xs text-gray-500 truncate">{{ current_user.email }}</div>
+                            class="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-stone-200 overflow-hidden z-50">
+                            <div class="px-4 py-3 bg-stone-50 border-b border-stone-200">
+                                <div class="text-sm font-semibold text-stone-900">{{ current_user.full_name }}</div>
+                                <div class="text-xs text-stone-500 truncate">{{ current_user.email }}</div>
                             </div>
-                            <a href="/profile" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                            <a href="/profile" class="flex items-center gap-3 px-4 py-3 text-sm text-stone-700 hover:bg-stone-50 transition-colors">
+                                <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                 My Profile
                             </a>
-                            <a href="/subscription" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                            <a href="/subscription" class="flex items-center gap-3 px-4 py-3 text-sm text-stone-700 hover:bg-stone-50 transition-colors">
+                                <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                                 Subscription
                             </a>
-                            <div class="border-t border-gray-100">
+                            <a href="/gift/redeem" class="flex items-center gap-3 px-4 py-3 text-sm text-stone-700 hover:bg-stone-50 transition-colors">
+                                <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+                                Redeem Gift
+                            </a>
+                            <div class="border-t border-stone-100">
                                 <a href="/logout" class="flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                                     Sign Out
@@ -123,12 +125,12 @@
                         </div>
                     </div>
                     {% else %}
-                    <a href="/login" class="text-gray-300 hover:text-white text-sm font-medium transition-colors px-3 py-1.5">Sign In</a>
-                    <a href="/register" class="btn-primary text-sm px-4 py-2 rounded-xl">Start Free Trial</a>
+                    <a href="/login" class="text-stone-600 hover:text-stone-900 text-sm font-medium transition-colors px-3 py-1.5">Sign In</a>
+                    <a href="/register" class="btn-primary text-sm px-4 py-2 rounded-lg">Start Free Trial</a>
                     {% endif %}
 
                     <!-- Mobile Menu Toggle -->
-                    <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 text-gray-300 hover:text-white">
+                    <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 text-stone-600 hover:text-stone-900">
                         <svg x-show="!mobileOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
@@ -141,8 +143,8 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div x-show="mobileOpen" x-transition class="md:hidden border-t border-dark-blue">
-            <div class="px-4 py-3 space-y-1 bg-dark-blue">
+        <div x-show="mobileOpen" x-transition class="md:hidden border-t border-stone-200">
+            <div class="px-4 py-3 space-y-1 bg-stone-50">
                 {% if current_user %}
                 <a href="/dashboard" class="mobile-nav-link">Dashboard</a>
                 <a href="/videos" class="mobile-nav-link">Videos</a>
@@ -152,7 +154,8 @@
                 <a href="/wearables" class="mobile-nav-link">Wearables</a>
                 <a href="/profile" class="mobile-nav-link">Profile</a>
                 <a href="/subscription" class="mobile-nav-link">Subscription</a>
-                <a href="/logout" class="mobile-nav-link text-red-400">Sign Out</a>
+                <a href="/gift/redeem" class="mobile-nav-link">Redeem Gift</a>
+                <a href="/logout" class="mobile-nav-link text-red-500">Sign Out</a>
                 {% else %}
                 <a href="/login" class="mobile-nav-link">Sign In</a>
                 <a href="/register" class="mobile-nav-link">Start Free Trial</a>
@@ -165,19 +168,18 @@
     {% if success is defined and success %}
     <div x-data="{ show: true }" x-show="show" x-transition
         class="fixed top-20 right-4 z-50 max-w-sm">
-        <div class="bg-green-500 text-white px-5 py-3 rounded-2xl shadow-lg flex items-center gap-3">
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="bg-stone-900 text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-3">
+            <svg class="w-5 h-5 flex-shrink-0 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
             </svg>
             <span class="text-sm font-medium">{{ success }}</span>
-            <button @click="show = false" class="ml-2 text-green-200 hover:text-white">
+            <button @click="show = false" class="ml-2 text-stone-400 hover:text-white">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
         </div>
     </div>
-    <script>setTimeout(() => { const el = document.querySelector('[x-data*="show"]'); if(el && el._x_dataStack) {} }, 4000);</script>
     {% endif %}
 
     <!-- Main Content -->
@@ -186,30 +188,22 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-navy text-gray-300 mt-16">
+    <footer class="bg-stone-50 border-t border-stone-200 mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Brand -->
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-bright-teal rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                            </svg>
-                        </div>
-                        <span class="text-white font-serif text-xl font-bold">FORMA</span>
+                        <span class="text-stone-900 font-serif text-xl font-bold tracking-widest">FORMA</span>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-xs">
-                        Transform your body and mind with expert-led pilates, AI nutrition, and a supportive community of women.
+                    <p class="text-stone-600 text-sm leading-relaxed max-w-xs">
+                        Transform your body and mind with expert-led pilates, AI nutrition, and a supportive community.
                     </p>
                     <div class="flex items-center gap-3 mt-4">
-                        <a href="#" class="w-8 h-8 bg-dark-blue rounded-lg flex items-center justify-center hover:bg-med-blue transition-colors">
+                        <a href="#" class="w-8 h-8 border border-stone-200 rounded-lg flex items-center justify-center hover:bg-stone-100 transition-colors text-stone-600">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         </a>
-                        <a href="#" class="w-8 h-8 bg-dark-blue rounded-lg flex items-center justify-center hover:bg-med-blue transition-colors">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/></svg>
-                        </a>
-                        <a href="#" class="w-8 h-8 bg-dark-blue rounded-lg flex items-center justify-center hover:bg-med-blue transition-colors">
+                        <a href="#" class="w-8 h-8 border border-stone-200 rounded-lg flex items-center justify-center hover:bg-stone-100 transition-colors text-stone-600">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         </a>
                     </div>
@@ -217,29 +211,31 @@
 
                 <!-- Links -->
                 <div>
-                    <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Platform</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="/videos" class="hover:text-white transition-colors">Video Library</a></li>
-                        <li><a href="/meal-plans" class="hover:text-white transition-colors">AI Meal Plans</a></li>
-                        <li><a href="/marketplace" class="hover:text-white transition-colors">Shop</a></li>
-                        <li><a href="/subscription" class="hover:text-white transition-colors">Pricing</a></li>
+                    <h4 class="text-stone-900 font-semibold mb-4 text-sm uppercase tracking-wide">Platform</h4>
+                    <ul class="space-y-2 text-sm text-stone-600">
+                        <li><a href="/videos" class="hover:text-stone-900 transition-colors">Video Library</a></li>
+                        <li><a href="/meal-plans" class="hover:text-stone-900 transition-colors">AI Meal Plans</a></li>
+                        <li><a href="/marketplace" class="hover:text-stone-900 transition-colors">Shop</a></li>
+                        <li><a href="/subscription" class="hover:text-stone-900 transition-colors">Pricing</a></li>
+                        <li><a href="/gift" class="hover:text-stone-900 transition-colors">Gift a Subscription</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Company</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    <h4 class="text-stone-900 font-semibold mb-4 text-sm uppercase tracking-wide">Company</h4>
+                    <ul class="space-y-2 text-sm text-stone-600">
+                        <li><a href="#" class="hover:text-stone-900 transition-colors">About Us</a></li>
+                        <li><a href="/faq" class="hover:text-stone-900 transition-colors">FAQs</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition-colors">Contact</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="border-t border-dark-blue mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-sm">&copy; 2026 Forma Pilates. All rights reserved.</p>
-                <p class="text-gray-600 text-xs">Powered by FastAPI &amp; Anthropic Claude</p>
+            <div class="border-t border-stone-200 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="text-stone-400 text-sm">&copy; 2026 Forma Pilates. All rights reserved.</p>
+                <p class="text-stone-400 text-xs">Powered by FastAPI &amp; Anthropic Claude</p>
             </div>
         </div>
     </footer>

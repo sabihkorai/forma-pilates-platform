@@ -26,7 +26,15 @@ class User(Base):
     weight_kg = Column(Float, nullable=True)
     target_weight_kg = Column(Float, nullable=True)
     age = Column(Integer, nullable=True)
-    phone = Column(String(50), nullable=True)
+    phone = Column(String(50), nullable=False, default="", index=True)
+
+    # Trial fields
+    trial_end_date = Column(DateTime, nullable=True)
+    trial_used = Column(Boolean, default=False)
+    payment_method_token = Column(String(255), nullable=True)
+
+    # Newsletter opt-in
+    newsletter_opt_in = Column(Boolean, default=True)
 
     subscriptions = relationship("Subscription", back_populates="user")
     workout_sessions = relationship("WorkoutSession", back_populates="user")
@@ -202,3 +210,23 @@ class CartItem(Base):
 
     user = relationship("User", back_populates="cart_items")
     product = relationship("Product", back_populates="cart_items")
+
+
+class GiftCertificate(Base):
+    __tablename__ = "gift_certificates"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    purchaser_user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    purchaser_name = Column(String(255), nullable=False)
+    purchaser_email = Column(String(255), nullable=False)
+    recipient_name = Column(String(255), nullable=False)
+    recipient_email = Column(String(255), nullable=False)
+    plan_type = Column(String(50), nullable=False)
+    amount = Column(Float, nullable=False)
+    gift_code = Column(String(20), unique=True, nullable=False)
+    personal_message = Column(Text, nullable=True)
+    is_redeemed = Column(Boolean, default=False)
+    redeemed_by_user_id = Column(Integer, nullable=True)
+    redeemed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    delivery_date = Column(DateTime, nullable=True)

@@ -114,7 +114,7 @@ async def meal_plans_page(request: Request, db: Session = Depends(get_db)):
 async def generate_meal_plan(
     request: Request,
     age: int = Form(default=30),
-    weight: float = Form(default=65.0),
+    weight_lbs: float = Form(default=143.0),
     height: float = Form(default=165.0),
     goal: str = Form(default="maintenance"),
     dietary_preference: str = Form(default="none"),
@@ -126,6 +126,9 @@ async def generate_meal_plan(
         current_user = auth.get_current_user(request)
     except Exception:
         return HTMLResponse('<div class="text-red-500 p-4">Not authenticated. Please log in.</div>')
+
+    # Convert lbs to kg for AI prompt
+    weight = round(weight_lbs / 2.205, 1)
 
     if current_user.subscription_tier != "premium":
         return HTMLResponse('''

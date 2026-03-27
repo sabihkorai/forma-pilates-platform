@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from datetime import datetime
 import json
 
@@ -20,6 +20,7 @@ from routers import (
     profile_router,
     subscription_router
 )
+from routers import gift_router
 
 app = FastAPI(title="Forma Pilates Platform", version="1.0.0")
 
@@ -38,6 +39,7 @@ app.include_router(equipment_router.router)
 app.include_router(wearables_router.router)
 app.include_router(profile_router.router)
 app.include_router(subscription_router.router)
+app.include_router(gift_router.router)
 
 
 def seed_database():
@@ -51,6 +53,7 @@ def seed_database():
         print("[SEED] Seeding database...")
 
         # Create demo user
+        from datetime import timedelta
         demo_user = models.User(
             email="demo@pilates.com",
             full_name="Sarah Johnson",
@@ -62,7 +65,10 @@ def seed_database():
             height_cm=168.0,
             weight_kg=62.0,
             target_weight_kg=58.0,
-            age=32
+            age=32,
+            phone="+1 (555) 000-0000",
+            newsletter_opt_in=True,
+            trial_used=False
         )
         db.add(demo_user)
         db.flush()
@@ -423,6 +429,16 @@ async def home(request: Request):
         return response
     finally:
         db.close()
+
+
+@app.get("/faq", response_class=HTMLResponse)
+async def faq_page(request: Request):
+    current_user = auth.get_current_user_optional(request)
+    return templates.TemplateResponse("faq.html", {
+        "request": request,
+        "current_user": current_user,
+        "is_premium": current_user.subscription_tier == "premium" if current_user else False
+    })
 
 
 @app.exception_handler(404)

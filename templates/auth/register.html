@@ -2,26 +2,21 @@
 {% block title %}Create Account – Forma Pilates{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-navy via-dark-blue to-med-blue flex items-center justify-center p-4 py-12">
+<div class="min-h-screen bg-stone-50 flex items-center justify-center p-4 py-12">
     <div class="w-full max-w-lg">
 
         <!-- Logo -->
         <div class="text-center mb-8">
             <a href="/" class="inline-flex items-center gap-2">
-                <div class="w-10 h-10 bg-bright-teal rounded-xl flex items-center justify-center">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                    </svg>
-                </div>
-                <span class="text-white font-serif text-2xl font-bold">FORMA</span>
+                <span class="text-stone-900 font-serif text-2xl font-bold tracking-widest">FORMA</span>
             </a>
-            <p class="text-gray-300 mt-2 text-sm">Start your transformation today</p>
+            <p class="text-stone-500 mt-2 text-sm">Start your 15-day free trial today</p>
         </div>
 
         <!-- Card -->
-        <div class="bg-white rounded-3xl shadow-2xl p-8">
-            <h1 class="text-2xl font-bold text-gray-900 mb-1">Create Your Account</h1>
-            <p class="text-gray-500 text-sm mb-6">Join 50,000+ women transforming their bodies</p>
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-8">
+            <h1 class="text-2xl font-bold text-stone-900 mb-1">Create Your Account</h1>
+            <p class="text-stone-500 text-sm mb-6">Join thousands of women transforming their bodies</p>
 
             {% if error %}
             <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm flex items-center gap-2">
@@ -46,18 +41,44 @@
                     </div>
                 </div>
 
-                <!-- Password -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" required placeholder="Min. 6 characters"
-                            minlength="6" class="form-input">
+                <!-- Phone -->
+                <div>
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" name="phone" required placeholder="+1 (555) 000-0000"
+                        class="form-input">
+                </div>
+
+                <!-- Password with strength checker -->
+                <div x-data="{
+                    pwd: '',
+                    get hasUpper() { return /[A-Z]/.test(this.pwd) },
+                    get hasNum() { return /[0-9]/.test(this.pwd) },
+                    get hasSpecial() { return /[=+\-_)(/*&^%$#@!~\`|}\]{\'\";:/?.,><\\]/.test(this.pwd) },
+                    get hasLen() { return this.pwd.length >= 6 },
+                    get valid() { return this.hasUpper && this.hasNum && this.hasSpecial && this.hasLen }
+                }">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" x-model="pwd" required class="form-input" placeholder="Min. 6 characters">
+                    <div class="mt-2 grid grid-cols-2 gap-1">
+                        <div :class="hasLen ? 'text-green-600' : 'text-stone-400'" class="text-xs flex items-center gap-1">
+                            <span x-text="hasLen ? '✓' : '○'"></span> 6+ characters
+                        </div>
+                        <div :class="hasUpper ? 'text-green-600' : 'text-stone-400'" class="text-xs flex items-center gap-1">
+                            <span x-text="hasUpper ? '✓' : '○'"></span> 1 uppercase
+                        </div>
+                        <div :class="hasNum ? 'text-green-600' : 'text-stone-400'" class="text-xs flex items-center gap-1">
+                            <span x-text="hasNum ? '✓' : '○'"></span> 1 number
+                        </div>
+                        <div :class="hasSpecial ? 'text-green-600' : 'text-stone-400'" class="text-xs flex items-center gap-1">
+                            <span x-text="hasSpecial ? '✓' : '○'"></span> 1 special character
+                        </div>
                     </div>
-                    <div>
-                        <label class="form-label">Confirm Password</label>
-                        <input type="password" name="confirm_password" required placeholder="Repeat password"
-                            class="form-input">
-                    </div>
+                </div>
+
+                <div>
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" name="confirm_password" required placeholder="Repeat password"
+                        class="form-input">
                 </div>
 
                 <!-- Plan Selection -->
@@ -68,11 +89,11 @@
                         <!-- Basic -->
                         <label class="cursor-pointer">
                             <input type="radio" name="plan" value="basic" x-model="plan" class="sr-only">
-                            <div :class="plan === 'basic' ? 'border-med-blue bg-blue-50 ring-2 ring-med-blue' : 'border-gray-200 bg-white hover:border-gray-300'"
-                                class="border-2 rounded-2xl p-4 transition-all">
-                                <div class="font-bold text-gray-900 text-lg">Basic</div>
-                                <div class="text-2xl font-extrabold text-dark-blue">$39<span class="text-sm font-normal text-gray-500">/mo</span></div>
-                                <ul class="mt-2 space-y-1 text-xs text-gray-600">
+                            <div :class="plan === 'basic' ? 'border-stone-900 bg-stone-50 ring-2 ring-stone-900' : 'border-stone-200 bg-white hover:border-stone-300'"
+                                class="border-2 rounded-xl p-4 transition-all">
+                                <div class="font-bold text-stone-900 text-lg">Basic</div>
+                                <div class="text-2xl font-extrabold text-stone-900">$39<span class="text-sm font-normal text-stone-500">/mo</span></div>
+                                <ul class="mt-2 space-y-1 text-xs text-stone-600">
                                     <li class="flex items-center gap-1"><svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>200+ video library</li>
                                     <li class="flex items-center gap-1"><svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>Progress tracking</li>
                                     <li class="flex items-center gap-1"><svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>Mobile app</li>
@@ -83,14 +104,14 @@
                         <!-- Premium -->
                         <label class="cursor-pointer relative">
                             <input type="radio" name="plan" value="premium" x-model="plan" class="sr-only">
-                            <div :class="plan === 'premium' ? 'border-teal bg-teal-50 ring-2 ring-teal' : 'border-gray-200 bg-white hover:border-gray-300'"
-                                class="border-2 rounded-2xl p-4 transition-all">
+                            <div :class="plan === 'premium' ? 'border-stone-900 bg-stone-50 ring-2 ring-stone-900' : 'border-stone-200 bg-white hover:border-stone-300'"
+                                class="border-2 rounded-xl p-4 transition-all">
                                 <div class="absolute -top-2 right-3">
-                                    <span class="bg-gradient-to-r from-amber-400 to-amber-500 text-amber-900 text-xs font-bold px-2 py-0.5 rounded-full">POPULAR</span>
+                                    <span class="bg-stone-900 text-white text-xs font-bold px-2 py-0.5 rounded-full">POPULAR</span>
                                 </div>
-                                <div class="font-bold text-gray-900 text-lg">Premium</div>
-                                <div class="text-2xl font-extrabold text-teal">$59<span class="text-sm font-normal text-gray-500">/mo</span></div>
-                                <ul class="mt-2 space-y-1 text-xs text-gray-600">
+                                <div class="font-bold text-stone-900 text-lg">Premium</div>
+                                <div class="text-2xl font-extrabold text-stone-900">$59<span class="text-sm font-normal text-stone-500">/mo</span></div>
+                                <ul class="mt-2 space-y-1 text-xs text-stone-600">
                                     <li class="flex items-center gap-1"><svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>Everything in Basic</li>
                                     <li class="flex items-center gap-1"><svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>AI Meal Plans</li>
                                     <li class="flex items-center gap-1"><svg class="w-3 h-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>$200 equipment kit</li>
@@ -100,26 +121,55 @@
                     </div>
                 </div>
 
+                <!-- Payment Details -->
+                <div class="border border-stone-200 rounded-xl p-4 bg-stone-50">
+                    <p class="text-sm font-semibold text-stone-900 mb-1">Payment Details</p>
+                    <p class="text-xs text-stone-500 mb-3">Your card will NOT be charged during the 15-day free trial. Billing starts on day 16.</p>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="col-span-2">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" name="card_number" placeholder="4242 4242 4242 4242" maxlength="19" class="form-input" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Expiry</label>
+                            <input type="text" name="card_expiry" placeholder="MM/YY" maxlength="5" class="form-input" required>
+                        </div>
+                        <div>
+                            <label class="form-label">CVV</label>
+                            <input type="text" name="card_cvv" placeholder="123" maxlength="4" class="form-input" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter opt-in -->
+                <div class="flex items-start gap-2">
+                    <input type="checkbox" id="newsletter" name="newsletter" value="on" checked
+                        class="w-4 h-4 rounded mt-0.5 accent-stone-700">
+                    <label for="newsletter" class="text-sm text-stone-600">
+                        Subscribe to our newsletter for tips, new classes, and exclusive offers (you can unsubscribe anytime)
+                    </label>
+                </div>
+
                 <!-- Terms -->
                 <div class="flex items-start gap-2">
                     <input type="checkbox" id="terms" name="terms" required
-                        class="w-4 h-4 rounded mt-0.5 accent-teal-500">
-                    <label for="terms" class="text-sm text-gray-600">
-                        I agree to the <a href="#" class="text-med-blue hover:underline">Terms of Service</a> and <a href="#" class="text-med-blue hover:underline">Privacy Policy</a>
+                        class="w-4 h-4 rounded mt-0.5 accent-stone-700">
+                    <label for="terms" class="text-sm text-stone-600">
+                        I agree to the <a href="#" class="text-stone-900 underline">Terms of Service</a> and <a href="#" class="text-stone-900 underline">Privacy Policy</a>
                     </label>
                 </div>
 
                 <button type="submit" class="btn-primary w-full py-3 rounded-xl text-base font-semibold">
-                    Create Account & Start Free Trial
+                    Create Account &amp; Start Free Trial
                 </button>
 
-                <p class="text-xs text-gray-400 text-center">No credit card required for free trial. Cancel anytime.</p>
+                <p class="text-xs text-stone-400 text-center">15-day free trial. No charge until day 16. Cancel anytime.</p>
             </form>
 
             <div class="mt-6 text-center">
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-stone-500">
                     Already have an account?
-                    <a href="/login" class="text-med-blue hover:text-dark-blue font-semibold ml-1">Sign in</a>
+                    <a href="/login" class="text-stone-900 font-semibold ml-1 underline">Sign in</a>
                 </p>
             </div>
         </div>

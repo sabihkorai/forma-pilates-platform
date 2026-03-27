@@ -2,7 +2,8 @@ from fastapi import APIRouter, Request, Form, Depends, Response
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
-from datetime import timedelta
+from datetime import timedelta, datetime
+import re
 
 import models
 import auth
@@ -11,6 +12,20 @@ from config import settings
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
+
+
+def validate_password(password: str):
+    """Returns error message or None if valid."""
+    if len(password) < 6:
+        return "Password must be at least 6 characters"
+    if not re.search(r'[A-Z]', password):
+        return "Password must contain at least 1 uppercase letter"
+    if not re.search(r'[0-9]', password):
+        return "Password must contain at least 1 number"
+    special_chars = r'[=+\-_)(/*&^%$#@!~`|}\]{\'\";:/?.,><\\]'
+    if not re.search(special_chars, password):
+        return "Password must contain at least 1 special character"
+    return None
 
 
 @router.get("/login", response_class=HTMLResponse)
@@ -75,14 +90,30 @@ async def register(
     request: Request,
     full_name: str = Form(...),
     email: str = Form(...),
+    phone: str = Form(...),
     password: str = Form(...),
     confirm_password: str = Form(...),
     plan: str = Form(default="none"),
+    newsletter: str = Form(default="off"),
+    card_number: str = Form(default=""),
+    card_expiry: str = Form(default=""),
+    card_cvv: str = Form(default=""),
     db: Session = Depends(get_db)
 ):
+    if not phone or not phone.strip():
+        response = RedirectResponse(url="/register", status_code=302)
+        response.set_cookie("flash_error", "Phone number is required", max_age=5)
+        return response
+
     if password != confirm_password:
         response = RedirectResponse(url="/register", status_code=302)
         response.set_cookie("flash_error", "Passwords do not match", max_age=5)
+        return response
+
+    pwd_error = validate_password(password)
+    if pwd_error:
+        response = RedirectResponse(url="/register", status_code=302)
+        response.set_cookie("flash_error", pwd_error, max_age=5)
         return response
 
     existing = db.query(models.User).filter(models.User.email == email).first()
@@ -91,18 +122,18 @@ async def register(
         response.set_cookie("flash_error", "Email already registered", max_age=5)
         return response
 
-    if len(password) < 6:
-        response = RedirectResponse(url="/register", status_code=302)
-        response.set_cookie("flash_error", "Password must be at least 6 characters", max_age=5)
-        return response
-
     hashed = auth.hash_password(password)
     user = models.User(
         full_name=full_name,
         email=email,
+        phone=phone.strip(),
         password_hash=hashed,
         subscription_tier=plan if plan in ("basic", "premium") else "none",
-        avatar_url=f"https://ui-avatars.com/api/?name={full_name.replace(' ', '+')}&background=028090&color=fff&size=128"
+        avatar_url=f"https://ui-avatars.com/api/?name={full_name.replace(' ', '+')}&background=1A1A1A&color=fff&size=128",
+        trial_end_date=datetime.utcnow() + timedelta(days=15),
+        trial_used=True,
+        payment_method_token=f"mock_pm_{email}",
+        newsletter_opt_in=(newsletter == "on")
     )
     db.add(user)
     db.commit()

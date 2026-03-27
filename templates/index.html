@@ -4,48 +4,43 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section class="relative overflow-hidden" style="background: linear-gradient(135deg, #21295C 0%, #065A82 50%, #1C7293 100%);">
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-bright-teal rounded-full blur-3xl"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-med-blue rounded-full blur-3xl"></div>
-    </div>
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+<section class="relative overflow-hidden bg-white border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-                <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
-                    <span class="w-2 h-2 bg-bright-teal rounded-full animate-pulse"></span>
+                <div class="inline-flex items-center gap-2 bg-stone-100 text-stone-600 text-sm px-4 py-2 rounded-full mb-6">
+                    <span class="w-2 h-2 bg-sage rounded-full"></span>
                     Trusted by 50,000+ women worldwide
                 </div>
-                <h1 class="text-5xl md:text-6xl font-serif font-bold text-white leading-tight mb-6">
+                <h1 class="text-5xl md:text-6xl font-serif font-bold text-stone-900 leading-tight mb-6">
                     Transform Your Body.<br>
-                    <span class="gradient-text">From Home.</span>
+                    <span class="text-sage">From Home.</span>
                 </h1>
-                <p class="text-lg text-blue-100 mb-8 leading-relaxed max-w-lg">
+                <p class="text-lg text-stone-600 mb-8 leading-relaxed max-w-lg">
                     Expert-led pilates classes, AI-powered nutrition, and everything you need for a complete wellness transformation — all from your living room.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 mb-10">
-                    <a href="/register" class="btn-primary px-8 py-4 rounded-2xl text-lg font-semibold text-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all">
+                    <a href="/register" class="btn-primary px-8 py-4 rounded-xl text-lg font-semibold text-center">
                         Start Free Trial →
                     </a>
-                    <a href="#how-it-works" class="border-2 border-white/30 text-white px-8 py-4 rounded-2xl text-lg font-semibold text-center hover:bg-white/10 transition-all">
+                    <a href="#how-it-works" class="border border-stone-300 text-stone-700 px-8 py-4 rounded-xl text-lg font-semibold text-center hover:bg-stone-50 transition-all">
                         See How It Works
                     </a>
                 </div>
 
                 <!-- Trust Badges -->
                 <div class="flex flex-wrap items-center gap-6">
-                    <div class="flex items-center gap-2 text-white/80 text-sm">
-                        <svg class="w-5 h-5 text-bright-teal" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <div class="flex items-center gap-2 text-stone-600 text-sm">
+                        <svg class="w-5 h-5 text-sage" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         50,000+ members
                     </div>
-                    <div class="flex items-center gap-2 text-white/80 text-sm">
+                    <div class="flex items-center gap-2 text-stone-600 text-sm">
                         <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        4.8★ rating
+                        4.8 rating
                     </div>
-                    <div class="flex items-center gap-2 text-white/80 text-sm">
-                        <svg class="w-5 h-5 text-bright-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <div class="flex items-center gap-2 text-stone-600 text-sm">
+                        <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         30-day guarantee
                     </div>
                 </div>
@@ -53,27 +48,17 @@
 
             <!-- Hero Image -->
             <div class="relative hidden lg:block">
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                <div class="relative rounded-2xl overflow-hidden border border-stone-200">
                     <img src="https://picsum.photos/seed/heroPilates/600/500" alt="Woman doing pilates"
                         class="w-full h-[460px] object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent"></div>
                 </div>
                 <!-- Floating stats card -->
-                <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3">
-                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">🔥</div>
+                <div class="absolute -bottom-6 -left-6 bg-white rounded-xl border border-stone-200 shadow-lg p-4 flex items-center gap-3">
+                    <div class="w-12 h-12 bg-stone-100 rounded-xl flex items-center justify-center text-2xl">🔥</div>
                     <div>
-                        <div class="text-2xl font-bold text-gray-900">247</div>
-                        <div class="text-xs text-gray-500">Calories burned today</div>
+                        <div class="text-2xl font-bold text-stone-900">247</div>
+                        <div class="text-xs text-stone-500">Calories burned today</div>
                     </div>
-                </div>
-                <!-- Another floating card -->
-                <div class="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl p-4">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span class="text-xs text-gray-500">Live Now</span>
-                    </div>
-                    <div class="text-sm font-semibold text-gray-800">Morning Flow Class</div>
-                    <div class="text-xs text-gray-500">with Emma Clarke</div>
                 </div>
             </div>
         </div>
@@ -81,11 +66,11 @@
 </section>
 
 <!-- Features Section -->
-<section class="py-20 bg-white">
+<section class="py-20 bg-stone-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <h2 class="text-4xl font-serif font-bold text-navy mb-4">Everything You Need to Transform</h2>
-            <p class="text-lg text-gray-500 max-w-2xl mx-auto">One platform with all the tools, guidance, and community to help you reach your wellness goals.</p>
+            <h2 class="text-4xl font-serif font-bold text-stone-900 mb-4">Everything You Need to Transform</h2>
+            <p class="text-lg text-stone-500 max-w-2xl mx-auto">One platform with all the tools, guidance, and community to help you reach your wellness goals.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -99,11 +84,11 @@
             ] %}
             {% for icon, title, desc in features %}
             <div class="feature-card group">
-                <div class="w-14 h-14 bg-gradient-to-br from-teal to-bright-teal rounded-2xl flex items-center justify-center text-2xl mb-5 group-hover:scale-110 transition-transform">
+                <div class="w-14 h-14 bg-stone-100 border border-stone-200 rounded-xl flex items-center justify-center text-2xl mb-5 group-hover:bg-stone-200 transition-colors">
                     {{ icon }}
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">{{ title }}</h3>
-                <p class="text-gray-500 text-sm leading-relaxed">{{ desc }}</p>
+                <h3 class="text-lg font-bold text-stone-900 mb-2">{{ title }}</h3>
+                <p class="text-stone-500 text-sm leading-relaxed">{{ desc }}</p>
             </div>
             {% endfor %}
         </div>
@@ -111,11 +96,11 @@
 </section>
 
 <!-- How It Works -->
-<section id="how-it-works" class="py-20 bg-gray-50">
+<section id="how-it-works" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <h2 class="text-4xl font-serif font-bold text-navy mb-4">How It Works</h2>
-            <p class="text-gray-500 text-lg">Three simple steps to start your transformation</p>
+            <h2 class="text-4xl font-serif font-bold text-stone-900 mb-4">How It Works</h2>
+            <p class="text-stone-500 text-lg">Three simple steps to start your transformation</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -126,13 +111,13 @@
             ] %}
             <div class="relative text-center">
                 {% if not loop.last %}
-                <div class="hidden md:block absolute top-8 left-[55%] w-[90%] h-0.5 bg-gradient-to-r from-teal to-transparent"></div>
+                <div class="hidden md:block absolute top-8 left-[55%] w-[90%] h-px bg-stone-200"></div>
                 {% endif %}
-                <div class="w-16 h-16 bg-gradient-to-br from-navy to-med-blue rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg">
+                <div class="w-16 h-16 bg-stone-900 rounded-xl flex items-center justify-center mx-auto mb-5">
                     <span class="text-white font-bold text-lg font-serif">{{ num }}</span>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">{{ title }}</h3>
-                <p class="text-gray-500 leading-relaxed">{{ desc }}</p>
+                <h3 class="text-xl font-bold text-stone-900 mb-3">{{ title }}</h3>
+                <p class="text-stone-500 leading-relaxed">{{ desc }}</p>
             </div>
             {% endfor %}
         </div>
@@ -141,12 +126,12 @@
 
 <!-- Video Preview Section -->
 {% if sample_videos %}
-<section class="py-20 bg-white">
+<section class="py-20 bg-stone-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between mb-10">
             <div>
-                <h2 class="text-4xl font-serif font-bold text-navy mb-2">Explore Our Library</h2>
-                <p class="text-gray-500">A taste of the 200+ classes waiting for you</p>
+                <h2 class="text-4xl font-serif font-bold text-stone-900 mb-2">Explore Our Library</h2>
+                <p class="text-stone-500">A taste of the 200+ classes waiting for you</p>
             </div>
             <a href="/register" class="btn-primary px-6 py-3 rounded-xl font-semibold hidden md:block">View All Classes →</a>
         </div>
@@ -154,27 +139,27 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {% for video in sample_videos %}
             <div class="video-card group">
-                <div class="relative overflow-hidden rounded-xl">
+                <div class="relative overflow-hidden">
                     <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}"
                         class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                    <div class="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors flex items-center justify-center">
                         <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
-                            <svg class="w-5 h-5 text-navy ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="w-5 h-5 text-stone-900 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                     </div>
                     <div class="absolute top-3 left-3">
                         <span class="difficulty-{{ video.difficulty_level }} text-xs font-medium px-2.5 py-1 rounded-full">{{ video.difficulty_level.title() }}</span>
                     </div>
-                    <div class="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded-lg font-medium">
+                    <div class="absolute bottom-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded-lg font-medium">
                         {{ video.formatted_duration }}
                     </div>
                 </div>
                 <div class="p-3">
-                    <h3 class="font-semibold text-gray-900 text-sm mb-1 line-clamp-1">{{ video.title }}</h3>
-                    <p class="text-gray-500 text-xs">{{ video.instructor_name }}</p>
+                    <h3 class="font-semibold text-stone-900 text-sm mb-1 line-clamp-1">{{ video.title }}</h3>
+                    <p class="text-stone-500 text-xs">{{ video.instructor_name }}</p>
                     <div class="flex items-center gap-1 mt-2">
                         <svg class="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <span class="text-xs text-gray-500">{{ video.rating }}</span>
+                        <span class="text-xs text-stone-500">{{ video.rating }}</span>
                     </div>
                 </div>
             </div>
@@ -189,53 +174,53 @@
 {% endif %}
 
 <!-- Pricing Section -->
-<section id="pricing" class="py-20 bg-gray-50">
+<section id="pricing" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <h2 class="text-4xl font-serif font-bold text-navy mb-4">Simple, Transparent Pricing</h2>
-            <p class="text-gray-500 text-lg">No hidden fees. Cancel anytime.</p>
+            <h2 class="text-4xl font-serif font-bold text-stone-900 mb-4">Simple, Transparent Pricing</h2>
+            <p class="text-stone-500 text-lg">15-day free trial. No charge until day 16. Cancel anytime.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             <!-- Basic -->
-            <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-200">
-                <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Basic</div>
+            <div class="bg-white rounded-2xl p-8 border border-stone-200">
+                <div class="text-sm font-semibold text-stone-500 uppercase tracking-wide mb-3">Basic</div>
                 <div class="flex items-baseline gap-1 mb-6">
-                    <span class="text-5xl font-bold text-gray-900">$39</span>
-                    <span class="text-gray-500">/month</span>
+                    <span class="text-5xl font-bold text-stone-900">$39</span>
+                    <span class="text-stone-500">/month</span>
                 </div>
                 <ul class="space-y-3 mb-8">
                     {% for feature in ["Full video library (200+ classes)", "Progress tracking & streaks", "Community access", "Mobile app", "Basic meal plan templates"] %}
-                    <li class="flex items-center gap-3 text-sm text-gray-600">
-                        <svg class="w-5 h-5 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <li class="flex items-center gap-3 text-sm text-stone-600">
+                        <svg class="w-5 h-5 text-sage flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         {{ feature }}
                     </li>
                     {% endfor %}
                 </ul>
-                <a href="/register?plan=basic" class="w-full block text-center border-2 border-navy text-navy py-3 rounded-2xl font-semibold hover:bg-navy hover:text-white transition-colors">
+                <a href="/register?plan=basic" class="w-full block text-center btn-secondary py-3 rounded-xl font-semibold">
                     Get Started
                 </a>
             </div>
 
             <!-- Premium -->
-            <div class="relative bg-gradient-to-br from-navy to-dark-blue rounded-3xl p-8 shadow-xl text-white">
+            <div class="relative bg-stone-900 rounded-2xl p-8 text-white">
                 <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span class="bg-bright-teal text-white text-xs font-bold px-4 py-1 rounded-full shadow">MOST POPULAR</span>
+                    <span class="bg-gold text-white text-xs font-bold px-4 py-1 rounded-full">MOST POPULAR</span>
                 </div>
-                <div class="text-sm font-semibold text-blue-300 uppercase tracking-wide mb-3">Premium</div>
+                <div class="text-sm font-semibold text-stone-400 uppercase tracking-wide mb-3">Premium</div>
                 <div class="flex items-baseline gap-1 mb-6">
                     <span class="text-5xl font-bold">$59</span>
-                    <span class="text-blue-300">/month</span>
+                    <span class="text-stone-400">/month</span>
                 </div>
                 <ul class="space-y-3 mb-8">
                     {% for feature in ["Everything in Basic", "AI Meal Plans (Claude-powered)", "Wearable device sync", "$200 equipment kit included", "Post-natal specialist programs", "Priority customer support"] %}
-                    <li class="flex items-center gap-3 text-sm text-blue-100">
-                        <svg class="w-5 h-5 text-bright-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <li class="flex items-center gap-3 text-sm text-stone-300">
+                        <svg class="w-5 h-5 text-sage flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         {{ feature }}
                     </li>
                     {% endfor %}
                 </ul>
-                <a href="/register?plan=premium" class="w-full block text-center bg-bright-teal text-white py-3 rounded-2xl font-semibold hover:bg-opacity-90 transition-colors shadow-lg">
+                <a href="/register?plan=premium" class="w-full block text-center bg-white text-stone-900 py-3 rounded-xl font-semibold hover:bg-stone-100 transition-colors">
                     Get Started →
                 </a>
             </div>
@@ -244,11 +229,11 @@
 </section>
 
 <!-- Testimonials -->
-<section class="py-20 bg-white">
+<section class="py-20 bg-stone-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
-            <h2 class="text-4xl font-serif font-bold text-navy mb-4">Real Women, Real Results</h2>
-            <p class="text-gray-500">Join thousands of women who've transformed with Forma</p>
+            <h2 class="text-4xl font-serif font-bold text-stone-900 mb-4">Real Women, Real Results</h2>
+            <p class="text-stone-500">Join thousands of women who've transformed with Forma</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -257,18 +242,18 @@
                 ("Rachel T.", "rachel", "After having my second baby, I was scared to exercise. The post-natal program gave me confidence and healed my diastasis. I feel stronger than I did pre-pregnancy!", "Post-natal recovery success"),
                 ("Amanda L.", "amanda", "I've tried 6 other fitness apps and nothing stuck. Forma is different — the combination of pilates, nutrition, and tracking keeps me accountable. My posture has completely transformed.", "6 months consistent streak")
             ] %}
-            <div class="bg-gray-50 rounded-3xl p-6 relative">
+            <div class="bg-white border border-stone-200 rounded-2xl p-6">
                 <div class="flex items-center gap-1 mb-4">
                     {% for _ in range(5) %}
                     <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     {% endfor %}
                 </div>
-                <p class="text-gray-700 text-sm leading-relaxed mb-5 italic">"{{ quote }}"</p>
+                <p class="text-stone-700 text-sm leading-relaxed mb-5 italic">"{{ quote }}"</p>
                 <div class="flex items-center gap-3">
-                    <img src="https://picsum.photos/seed/{{ photo_seed }}/48/48" class="w-12 h-12 rounded-full object-cover" alt="{{ name }}">
+                    <img src="https://picsum.photos/seed/{{ photo_seed }}/48/48" class="w-12 h-12 rounded-full object-cover border border-stone-200" alt="{{ name }}">
                     <div>
-                        <div class="font-semibold text-gray-900 text-sm">{{ name }}</div>
-                        <div class="text-xs text-teal font-medium">{{ result }}</div>
+                        <div class="font-semibold text-stone-900 text-sm">{{ name }}</div>
+                        <div class="text-xs text-sage font-medium">{{ result }}</div>
                     </div>
                 </div>
             </div>
@@ -278,19 +263,19 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-20" style="background: linear-gradient(135deg, #21295C 0%, #028090 100%);">
+<section class="py-20 bg-stone-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl font-serif font-bold text-white mb-4">Ready to Start Your Journey?</h2>
-        <p class="text-blue-200 text-lg mb-10">Join 50,000+ women transforming their bodies and minds with Forma Pilates.</p>
+        <p class="text-stone-400 text-lg mb-10">Join 50,000+ women transforming their bodies and minds with Forma Pilates.</p>
 
         <form action="/register" method="GET" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input type="email" name="email" placeholder="Enter your email address"
-                class="flex-1 px-5 py-4 rounded-2xl bg-white/10 text-white placeholder-blue-300 border border-white/20 focus:outline-none focus:border-bright-teal backdrop-blur-sm">
-            <button type="submit" class="btn-primary px-6 py-4 rounded-2xl font-semibold whitespace-nowrap">
+                class="flex-1 px-5 py-4 rounded-xl bg-white/10 text-white placeholder-stone-500 border border-white/20 focus:outline-none focus:border-white/50">
+            <button type="submit" class="bg-white text-stone-900 px-6 py-4 rounded-xl font-semibold whitespace-nowrap hover:bg-stone-100 transition-colors">
                 Start Free Trial
             </button>
         </form>
-        <p class="text-blue-300 text-xs mt-4">No credit card required. 30-day money-back guarantee.</p>
+        <p class="text-stone-500 text-xs mt-4">15-day free trial. No charge until day 16. Cancel anytime.</p>
     </div>
 </section>
 

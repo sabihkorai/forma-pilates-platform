@@ -5,8 +5,8 @@
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 page-enter">
 
     <div class="mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Equipment Kit</h1>
-        <p class="text-gray-500 mt-1 text-sm">Your complimentary $200 premium pilates kit</p>
+        <h1 class="text-2xl font-bold text-stone-900">Equipment Kit</h1>
+        <p class="text-stone-500 mt-1 text-sm">Your complimentary $200 premium pilates kit</p>
     </div>
 
     {% if success %}
@@ -18,7 +18,7 @@
 
     {% if not is_premium %}
     <!-- Not Premium -->
-    <div class="bg-gradient-to-br from-navy to-dark-blue rounded-3xl p-10 text-center text-white">
+    <div class="bg-gradient-to-br from-stone-900 to-stone-800 rounded-3xl p-10 text-center text-white">
         <div class="text-6xl mb-4">📦</div>
         <h2 class="text-2xl font-bold mb-3">Premium Exclusive</h2>
         <p class="text-white/70 max-w-md mx-auto mb-6 text-sm leading-relaxed">
@@ -33,16 +33,16 @@
 
         <!-- Kit Contents -->
         <div class="bg-white rounded-2xl p-6 card-shadow">
-            <h2 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 class="font-bold text-stone-900 mb-4 flex items-center gap-2">
                 <span class="text-2xl">📦</span> What's in Your Kit
             </h2>
             <div class="space-y-3">
                 {% for item in equipment_list %}
-                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                    <div class="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <div class="flex items-center gap-3 p-3 bg-stone-50 rounded-xl">
+                    <div class="w-8 h-8 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                     </div>
-                    <span class="text-sm text-gray-700 font-medium">{{ item }}</span>
+                    <span class="text-sm text-stone-700 font-medium">{{ item }}</span>
                 </div>
                 {% endfor %}
             </div>
@@ -53,8 +53,8 @@
 
         <!-- Request Form -->
         <div class="bg-white rounded-2xl p-6 card-shadow">
-            <h2 class="font-bold text-gray-900 mb-2">Claim Your Kit</h2>
-            <p class="text-sm text-gray-500 mb-4">Enter your delivery address and we'll ship your kit within 2 business days.</p>
+            <h2 class="font-bold text-stone-900 mb-2">Claim Your Kit</h2>
+            <p class="text-sm text-stone-500 mb-4">Enter your delivery address and we'll ship your kit within 2 business days.</p>
 
             <form method="post" action="/equipment/request" class="space-y-4">
                 <div>
@@ -84,7 +84,7 @@
         <!-- Status Card -->
         <div class="bg-white rounded-2xl p-6 card-shadow">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="font-bold text-gray-900">Shipment Status</h2>
+                <h2 class="font-bold text-stone-900">Shipment Status</h2>
                 <span class="px-3 py-1 rounded-full text-sm font-semibold
                     {% if equipment_loan.status == 'delivered' or equipment_loan.status == 'owned' %}status-active
                     {% elif equipment_loan.status == 'shipped' %}status-shipped
@@ -99,7 +99,7 @@
                 {% set steps = [
                     ('ordered', 'Order Placed', 'Kit requested successfully', 'bg-green-500'),
                     ('shipped', 'Shipped', equipment_loan.shipped_date.strftime('%b %d, %Y') if equipment_loan.shipped_date else 'Estimated 2 business days', 'bg-blue-500'),
-                    ('delivered', 'Delivered', equipment_loan.delivered_date.strftime('%b %d, %Y') if equipment_loan.delivered_date else 'Estimated 5–7 business days', 'bg-teal'),
+                    ('delivered', 'Delivered', equipment_loan.delivered_date.strftime('%b %d, %Y') if equipment_loan.delivered_date else 'Estimated 5–7 business days', 'bg-sage'),
                     ('owned', 'Ownership Transfer', 'After 6 months of active subscription', 'bg-amber-500')
                 ] %}
                 {% set status_order = ['pending', 'ordered', 'shipped', 'delivered', 'owned'] %}
@@ -110,7 +110,7 @@
                 <div class="flex items-start gap-4">
                     <div class="flex flex-col items-center flex-shrink-0">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center
-                            {% if step_idx <= current_idx %}{{ step_color }} text-white{% else %}bg-gray-100 text-gray-400{% endif %}">
+                            {% if step_idx <= current_idx %}{{ step_color }} text-white{% else %}bg-stone-100 text-stone-400{% endif %}">
                             {% if step_idx <= current_idx %}
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                             {% else %}
@@ -118,12 +118,12 @@
                             {% endif %}
                         </div>
                         {% if not loop.last %}
-                        <div class="w-0.5 h-8 {% if step_idx < current_idx %}bg-teal{% else %}bg-gray-200{% endif %} mt-1"></div>
+                        <div class="w-0.5 h-8 {% if step_idx < current_idx %}bg-sage{% else %}bg-stone-200{% endif %} mt-1"></div>
                         {% endif %}
                     </div>
                     <div class="pb-4">
-                        <p class="font-semibold text-gray-900 text-sm">{{ step_title }}</p>
-                        <p class="text-xs text-gray-500 mt-0.5">{{ step_desc }}</p>
+                        <p class="font-semibold text-stone-900 text-sm">{{ step_title }}</p>
+                        <p class="text-xs text-stone-500 mt-0.5">{{ step_desc }}</p>
                     </div>
                 </div>
                 {% endfor %}
@@ -162,11 +162,11 @@
 
         <!-- Kit Contents -->
         <div class="bg-white rounded-2xl p-6 card-shadow">
-            <h2 class="font-bold text-gray-900 mb-4">Kit Contents</h2>
+            <h2 class="font-bold text-stone-900 mb-4">Kit Contents</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {% for item in equipment_list %}
-                <div class="flex items-center gap-2 p-2 text-sm text-gray-700">
-                    <svg class="w-4 h-4 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <div class="flex items-center gap-2 p-2 text-sm text-stone-700">
+                    <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                     {{ item }}
                 </div>
                 {% endfor %}

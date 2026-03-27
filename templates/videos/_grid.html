@@ -13,11 +13,11 @@
         </div>
         {% else %}
         <a href="/videos/{{ video.id }}" class="block">
-            <div class="thumbnail-wrap aspect-video bg-gray-200">
+            <div class="thumbnail-wrap aspect-video bg-stone-200">
                 <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" class="img-cover" loading="lazy">
                 <div class="play-overlay">
                     <div class="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-                        <svg class="w-6 h-6 text-gray-800 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="w-6 h-6 text-stone-800 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         <div class="p-4">
             <div class="flex items-start justify-between gap-2 mb-2">
                 <a href="/videos/{{ video.id }}" class="flex-1">
-                    <h3 class="font-semibold text-gray-900 text-sm leading-snug line-clamp-2 hover:text-dark-blue transition-colors">{{ video.title }}</h3>
+                    <h3 class="font-semibold text-stone-900 text-sm leading-snug line-clamp-2 hover:text-stone-900 transition-colors">{{ video.title }}</h3>
                 </a>
                 {% if video.is_premium %}
                 <span class="tier-badge-premium text-xs flex-shrink-0">Premium</span>
@@ -41,10 +41,10 @@
                     {% else %}badge-advanced{% endif %}">
                     {{ video.difficulty_level | title }}
                 </span>
-                <span class="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{{ video.category | title }}</span>
+                <span class="text-xs text-stone-400 bg-stone-100 px-2 py-0.5 rounded-full">{{ video.category | title }}</span>
             </div>
 
-            <div class="flex items-center justify-between text-xs text-gray-500">
+            <div class="flex items-center justify-between text-xs text-stone-500">
                 <div class="flex items-center gap-1">
                     <img src="https://ui-avatars.com/api/?name={{ video.instructor_name.replace(' ', '+') }}&size=20&background=028090&color=fff"
                         class="w-4 h-4 rounded-full" alt="">
@@ -68,14 +68,14 @@
 <div class="flex items-center justify-center gap-2 mt-8">
     {% if page > 1 %}
     <a href="?page={{ page - 1 }}&category={{ category }}&difficulty={{ difficulty }}&duration_filter={{ duration_filter }}&search={{ search }}"
-        class="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">← Prev</a>
+        class="px-4 py-2 border border-stone-200 rounded-xl text-sm font-medium text-stone-700 hover:bg-stone-50 transition-colors">← Prev</a>
     {% endif %}
 
-    <span class="text-sm text-gray-500 px-3">Page {{ page }} of {{ total_pages }}</span>
+    <span class="text-sm text-stone-500 px-3">Page {{ page }} of {{ total_pages }}</span>
 
     {% if page < total_pages %}
     <a href="?page={{ page + 1 }}&category={{ category }}&difficulty={{ difficulty }}&duration_filter={{ duration_filter }}&search={{ search }}"
-        class="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">Next →</a>
+        class="px-4 py-2 border border-stone-200 rounded-xl text-sm font-medium text-stone-700 hover:bg-stone-50 transition-colors">Next →</a>
     {% endif %}
 </div>
 {% endif %}
@@ -83,8 +83,8 @@
 {% else %}
 <div class="text-center py-20">
     <div class="text-6xl mb-4">🔍</div>
-    <h3 class="text-lg font-semibold text-gray-700 mb-2">No videos found</h3>
-    <p class="text-gray-400 text-sm">Try adjusting your filters or search term</p>
-    <a href="/videos" class="mt-4 inline-block text-med-blue hover:text-dark-blue font-medium text-sm">Clear all filters</a>
+    <h3 class="text-lg font-semibold text-stone-700 mb-2">No videos found</h3>
+    <p class="text-stone-400 text-sm">Try adjusting your filters or search term</p>
+    <a href="/videos" class="mt-4 inline-block text-stone-600 hover:text-stone-900 font-medium text-sm">Clear all filters</a>
 </div>
 {% endif %}

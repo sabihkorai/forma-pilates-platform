@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Gift a Subscription – Forma Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 page-enter">
+
+    <div class="mb-8 text-center">
+        <h1 class="text-3xl font-serif font-bold text-stone-900 mb-2">Gift a Forma Subscription</h1>
+        <p class="text-stone-500 text-sm">Give the gift of wellness. Your recipient will receive a gift code by email.</p>
+    </div>
+
+    {% if error %}
+    <div class="mb-6 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm flex items-center gap-2 max-w-xl mx-auto">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start" x-data="{ plan: 'basic', pname: '', rname: '', message: '', deliveryDate: '' }">
+
+        <!-- Form -->
+        <div class="bg-white rounded-2xl border border-stone-200 p-8">
+            <form method="post" action="/gift/purchase" class="space-y-5">
+
+                <h2 class="font-bold text-stone-900 mb-4">Your Details</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="form-label">Your Name</label>
+                        <input type="text" name="purchaser_name" required x-model="pname" placeholder="Your full name" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Your Email</label>
+                        <input type="email" name="purchaser_email" required placeholder="your@email.com" class="form-input"
+                            value="{{ current_user.email if current_user else '' }}">
+                    </div>
+                </div>
+
+                <hr class="border-stone-100">
+                <h2 class="font-bold text-stone-900">Recipient Details</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="form-label">Recipient's Name</label>
+                        <input type="text" name="recipient_name" required x-model="rname" placeholder="Their full name" class="form-input">
+                    </div>
+                    <div>
+                        <label class="form-label">Recipient's Email</label>
+                        <input type="email" name="recipient_email" required placeholder="their@email.com" class="form-input">
+                    </div>
+                </div>
+
+                <!-- Plan Selection -->
+                <div>
+                    <label class="form-label">Select Plan</label>
+                    <div class="grid grid-cols-2 gap-3 mt-1">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="plan_type" value="basic" x-model="plan" class="sr-only">
+                            <div :class="plan === 'basic' ? 'border-stone-900 ring-2 ring-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-300'"
+                                class="border-2 rounded-xl p-4 transition-all text-center">
+                                <div class="font-bold text-stone-900">Basic</div>
+                                <div class="text-2xl font-extrabold text-stone-900">$39<span class="text-sm font-normal text-stone-500">/mo</span></div>
+                                <div class="text-xs text-stone-500 mt-1">200+ videos, tracking</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="plan_type" value="premium" x-model="plan" class="sr-only">
+                            <div :class="plan === 'premium' ? 'border-stone-900 ring-2 ring-stone-900 bg-stone-50' : 'border-stone-200 hover:border-stone-300'"
+                                class="border-2 rounded-xl p-4 transition-all text-center">
+                                <div class="font-bold text-stone-900">Premium</div>
+                                <div class="text-2xl font-extrabold text-stone-900">$59<span class="text-sm font-normal text-stone-500">/mo</span></div>
+                                <div class="text-xs text-stone-500 mt-1">AI meals, equipment kit</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Personal Message -->
+                <div>
+                    <label class="form-label">Personal Message (optional)</label>
+                    <textarea name="personal_message" x-model="message" rows="3" maxlength="500"
+                        placeholder="Write a heartfelt message..."
+                        class="form-input resize-none"></textarea>
+                    <p class="text-xs text-stone-400 mt-1" x-text="message.length + '/500 characters'"></p>
+                </div>
+
+                <!-- Delivery Date -->
+                <div>
+                    <label class="form-label">Delivery Date</label>
+                    <input type="date" name="delivery_date" class="form-input"
+                        :min="new Date().toISOString().split('T')[0]"
+                        x-model="deliveryDate">
+                    <p class="text-xs text-stone-400 mt-1">Leave blank to send today</p>
+                </div>
+
+                <!-- Payment -->
+                <hr class="border-stone-100">
+                <h2 class="font-bold text-stone-900">Payment Details</h2>
+                <div class="border border-stone-200 rounded-xl p-4 bg-stone-50">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="col-span-2">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" name="card_number" placeholder="4242 4242 4242 4242" maxlength="19" class="form-input" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Expiry</label>
+                            <input type="text" name="card_expiry" placeholder="MM/YY" maxlength="5" class="form-input" required>
+                        </div>
+                        <div>
+                            <label class="form-label">CVV</label>
+                            <input type="text" name="card_cvv" placeholder="123" maxlength="4" class="form-input" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 rounded-xl font-semibold">
+                    Send Gift Certificate →
+                </button>
+
+                <p class="text-xs text-stone-400 text-center">
+                    You will be charged <strong x-text="plan === 'premium' ? '$59' : '$39'"></strong> for one month of access.
+                </p>
+            </form>
+        </div>
+
+        <!-- Preview Card -->
+        <div class="lg:sticky lg:top-24">
+            <p class="text-xs text-stone-400 uppercase tracking-wide font-medium mb-3">Gift Email Preview</p>
+            <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
+                <div class="bg-stone-900 p-6 text-center">
+                    <span class="text-white font-serif text-2xl font-bold tracking-widest">FORMA</span>
+                    <p class="text-stone-400 text-xs mt-1">A gift for you</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-stone-500 text-sm mb-4">Dear <strong x-text="rname || 'Recipient'" class="text-stone-900"></strong>,</p>
+                    <p class="text-stone-600 text-sm mb-4">
+                        <strong x-text="pname || 'Someone special'" class="text-stone-900"></strong> has gifted you a
+                        <strong x-text="plan === 'premium' ? 'Premium' : 'Basic'" class="text-stone-900"></strong> Forma Pilates subscription!
+                    </p>
+                    <div x-show="message" class="bg-stone-50 border border-stone-200 rounded-xl p-4 mb-4 text-sm text-stone-600 italic" x-text='"&ldquo;" + message + "&rdquo;"'></div>
+                    <div class="bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl p-4 text-center mb-4">
+                        <p class="text-xs text-stone-400 mb-1">Your gift code</p>
+                        <p class="text-xl font-bold text-stone-900 tracking-widest font-mono">FORMA-XXXXXX</p>
+                    </div>
+                    <p class="text-xs text-stone-400 text-center">
+                        Redeem at <strong>formpilates.com/gift/redeem</strong>
+                    </p>
+                </div>
+                <div class="bg-stone-50 border-t border-stone-200 p-4 text-center">
+                    <p class="text-xs text-stone-400">
+                        Plan: <strong x-text="plan === 'premium' ? 'Premium ($59/mo)' : 'Basic ($39/mo)'" class="text-stone-600"></strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

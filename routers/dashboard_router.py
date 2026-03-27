@@ -3,6 +3,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
+import calendar
 
 import models
 import auth
@@ -10,6 +11,10 @@ from database import get_db
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
+
+
+def last_day_of_month(year, month):
+    return calendar.monthrange(year, month)[1]
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
@@ -110,6 +115,33 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
         models.WearableDevice.is_active == True
     ).count()
 
+    # Monthly anniversary check
+    show_congratulations = False
+    membership_months = 0
+    try:
+        today_date = datetime.utcnow().date()
+        signup_date = current_user.created_at.date()
+        if today_date > signup_date:
+            months = (today_date.year - signup_date.year) * 12 + (today_date.month - signup_date.month)
+            if months > 0:
+                # Handle signup day > 28 by using last day of current month
+                signup_day = signup_date.day
+                current_month_last = last_day_of_month(today_date.year, today_date.month)
+                effective_day = min(signup_day, current_month_last)
+                if today_date.day == effective_day:
+                    show_congratulations = True
+                    membership_months = months
+    except Exception:
+        pass
+
+    # Trial days remaining
+    trial_days_remaining = 0
+    try:
+        if current_user.trial_end_date and current_user.trial_end_date > datetime.utcnow():
+            trial_days_remaining = (current_user.trial_end_date - datetime.utcnow()).days
+    except Exception:
+        pass
+
     success_msg = request.cookies.get("flash_success", "")
     response = templates.TemplateResponse("dashboard/index.html", {
         "request": request,
@@ -126,6 +158,9 @@ async def dashboard(request: Request, db: Session = Depends(get_db)):
         "meal_plan": meal_plan,
         "equipment_loan": equipment_loan,
         "wearable_count": wearable_count,
+        "show_congratulations": show_congratulations,
+        "membership_months": membership_months,
+        "trial_days_remaining": trial_days_remaining,
         "success": success_msg
     })
     response.delete_cookie("flash_success")

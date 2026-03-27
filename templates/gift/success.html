@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Gift Sent! – Forma Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center page-enter">
+
+    <div class="text-6xl mb-6">🎁</div>
+    <h1 class="text-3xl font-serif font-bold text-stone-900 mb-3">Gift Certificate Sent!</h1>
+    <p class="text-stone-500 mb-8">
+        A gift email has been sent to <strong class="text-stone-900">{{ cert.recipient_email }}</strong>.
+    </p>
+
+    <div class="bg-white border border-stone-200 rounded-2xl p-8 mb-8 text-left">
+        <h2 class="font-semibold text-stone-900 mb-4">Order Summary</h2>
+        <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+                <span class="text-stone-500">Recipient</span>
+                <span class="text-stone-900 font-medium">{{ cert.recipient_name }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-stone-500">Email</span>
+                <span class="text-stone-900 font-medium">{{ cert.recipient_email }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-stone-500">Plan</span>
+                <span class="text-stone-900 font-medium">{{ cert.plan_type | title }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-stone-500">Amount</span>
+                <span class="text-stone-900 font-medium">${{ "%.2f" | format(cert.amount) }}/month</span>
+            </div>
+            <hr class="border-stone-100 my-2">
+            <div class="flex justify-between">
+                <span class="text-stone-500">Gift Code</span>
+                <span class="text-stone-900 font-mono font-bold tracking-widest">{{ cert.gift_code }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/gift" class="btn-secondary px-6 py-3 rounded-xl font-semibold">Send Another Gift</a>
+        <a href="/dashboard" class="btn-primary px-6 py-3 rounded-xl font-semibold">Back to Dashboard</a>
+    </div>
+
+    <p class="text-xs text-stone-400 mt-6">
+        The recipient can redeem their gift at <a href="/gift/redeem" class="underline">formpilates.com/gift/redeem</a>
+    </p>
+</div>
+{% endblock %}

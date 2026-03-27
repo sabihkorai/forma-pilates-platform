@@ -5,8 +5,8 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 page-enter">
 
     <div class="mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Subscription</h1>
-        <p class="text-gray-500 mt-1 text-sm">Manage your plan and billing</p>
+        <h1 class="text-2xl font-bold text-stone-900">Subscription</h1>
+        <p class="text-stone-500 mt-1 text-sm">Manage your plan and billing</p>
     </div>
 
     {% if success %}
@@ -22,7 +22,7 @@
     <!-- Current Plan -->
     <div class="bg-white rounded-2xl p-6 card-shadow mb-6">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="font-bold text-gray-900">Current Plan</h2>
+            <h2 class="font-bold text-stone-900">Current Plan</h2>
             {% if subscription %}
             <span class="status-active px-3 py-1 rounded-full text-sm font-semibold">Active</span>
             {% else %}
@@ -33,20 +33,20 @@
         {% if subscription %}
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Plan</p>
-                <p class="font-bold text-gray-900">{{ subscription.plan_type | title }}</p>
+                <p class="text-xs text-stone-400 uppercase tracking-wide mb-1">Plan</p>
+                <p class="font-bold text-stone-900">{{ subscription.plan_type | title }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Price</p>
-                <p class="font-bold text-gray-900">${{ "%.2f"|format(subscription.monthly_price) }}/mo</p>
+                <p class="text-xs text-stone-400 uppercase tracking-wide mb-1">Price</p>
+                <p class="font-bold text-stone-900">${{ "%.2f"|format(subscription.monthly_price) }}/mo</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Started</p>
-                <p class="font-bold text-gray-900">{{ subscription.start_date.strftime('%b %d, %Y') if subscription.start_date else '–' }}</p>
+                <p class="text-xs text-stone-400 uppercase tracking-wide mb-1">Started</p>
+                <p class="font-bold text-stone-900">{{ subscription.start_date.strftime('%b %d, %Y') if subscription.start_date else '–' }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-wide mb-1">Renews</p>
-                <p class="font-bold text-gray-900">{{ subscription.renewal_date.strftime('%b %d, %Y') if subscription.renewal_date else '–' }}</p>
+                <p class="text-xs text-stone-400 uppercase tracking-wide mb-1">Renews</p>
+                <p class="font-bold text-stone-900">{{ subscription.renewal_date.strftime('%b %d, %Y') if subscription.renewal_date else '–' }}</p>
             </div>
         </div>
 
@@ -57,14 +57,14 @@
                     <span class="text-white text-xs font-bold">VISA</span>
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-gray-800">•••• •••• •••• 4242</p>
-                    <p class="text-xs text-gray-400">Expires 12/27</p>
+                    <p class="text-sm font-medium text-stone-800">•••• •••• •••• 4242</p>
+                    <p class="text-xs text-stone-400">Expires 12/27</p>
                 </div>
             </div>
-            <button class="text-sm text-med-blue hover:text-dark-blue font-medium">Update</button>
+            <button class="text-sm text-stone-600 hover:text-stone-900 font-medium">Update</button>
         </div>
         {% else %}
-        <p class="text-gray-500 text-sm">You don't have an active subscription. Choose a plan below.</p>
+        <p class="text-stone-500 text-sm">You don't have an active subscription. Choose a plan below.</p>
         {% endif %}
     </div>
 
@@ -72,13 +72,13 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
 
         <!-- Basic -->
-        <div class="bg-white rounded-2xl p-6 card-shadow border-2 {% if current_user.subscription_tier == 'basic' %}border-dark-blue{% else %}border-transparent{% endif %}">
+        <div class="bg-white rounded-2xl p-6 card-shadow border-2 {% if current_user.subscription_tier == 'basic' %}border-stone-900{% else %}border-transparent{% endif %}">
             {% if current_user.subscription_tier == 'basic' %}
-            <div class="text-xs font-bold text-dark-blue uppercase tracking-wide mb-2">Current Plan</div>
+            <div class="text-xs font-bold text-stone-900 uppercase tracking-wide mb-2">Current Plan</div>
             {% endif %}
-            <h3 class="text-xl font-bold text-gray-900">Basic</h3>
-            <div class="text-3xl font-extrabold text-dark-blue mt-1 mb-4">$39<span class="text-base font-normal text-gray-500">/month</span></div>
-            <ul class="space-y-2 text-sm text-gray-600 mb-6">
+            <h3 class="text-xl font-bold text-stone-900">Basic</h3>
+            <div class="text-3xl font-extrabold text-stone-900 mt-1 mb-4">$39<span class="text-base font-normal text-stone-500">/month</span></div>
+            <ul class="space-y-2 text-sm text-stone-600 mb-6">
                 {% for feat in ['200+ pilates video library','All difficulty levels','Progress tracking & streaks','Mobile app (iOS & Android)','Marketplace access','Email support'] %}
                 <li class="flex items-center gap-2">
                     <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -89,23 +89,23 @@
             {% if current_user.subscription_tier != 'basic' %}
             <form method="post" action="/subscription/upgrade">
                 <input type="hidden" name="plan" value="basic">
-                <button type="submit" class="w-full py-2.5 rounded-xl font-semibold text-sm border-2 border-dark-blue text-dark-blue hover:bg-dark-blue hover:text-white transition-colors">
+                <button type="submit" class="w-full py-2.5 rounded-xl font-semibold text-sm border-2 border-stone-900 text-stone-900 hover:bg-stone-800 hover:text-white transition-colors">
                     Switch to Basic
                 </button>
             </form>
             {% else %}
-            <button disabled class="w-full py-2.5 rounded-xl font-semibold text-sm bg-gray-100 text-gray-400 cursor-not-allowed">
+            <button disabled class="w-full py-2.5 rounded-xl font-semibold text-sm bg-gray-100 text-stone-400 cursor-not-allowed">
                 Current Plan
             </button>
             {% endif %}
         </div>
 
         <!-- Premium -->
-        <div class="bg-gradient-to-br from-navy to-dark-blue rounded-2xl p-6 text-white border-2 {% if current_user.subscription_tier == 'premium' %}border-bright-teal{% else %}border-transparent{% endif %} relative overflow-hidden">
+        <div class="bg-stone-900 rounded-2xl p-6 text-white border-2 {% if current_user.subscription_tier == 'premium' %}border-bright-teal{% else %}border-transparent{% endif %} relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/4"></div>
             <div class="relative z-10">
                 {% if current_user.subscription_tier == 'premium' %}
-                <div class="text-xs font-bold text-bright-teal uppercase tracking-wide mb-2">Current Plan</div>
+                <div class="text-xs font-bold text-sage uppercase tracking-wide mb-2">Current Plan</div>
                 {% else %}
                 <div class="text-xs font-bold text-amber-400 uppercase tracking-wide mb-2">Most Popular</div>
                 {% endif %}
@@ -113,12 +113,12 @@
                 <div class="text-3xl font-extrabold text-white mt-1 mb-4">$59<span class="text-base font-normal text-white/60">/month</span></div>
                 <ul class="space-y-2 text-sm text-white/80 mb-6">
                     <li class="flex items-center gap-2 text-white font-medium">
-                        <svg class="w-4 h-4 text-bright-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         Everything in Basic
                     </li>
                     {% for feat in ['AI-powered meal plans (Claude)','Wearable device sync','$200 equipment kit included','Post-natal specialist programs','Priority support','Early access to new content'] %}
                     <li class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-bright-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <svg class="w-4 h-4 text-sage flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         {{ feat }}
                     </li>
                     {% endfor %}
@@ -126,7 +126,7 @@
                 {% if current_user.subscription_tier != 'premium' %}
                 <form method="post" action="/subscription/upgrade">
                     <input type="hidden" name="plan" value="premium">
-                    <button type="submit" class="w-full py-2.5 rounded-xl font-semibold text-sm bg-bright-teal text-white hover:bg-teal transition-colors">
+                    <button type="submit" class="w-full py-2.5 rounded-xl font-semibold text-sm bg-white text-stone-900 text-white hover:bg-sage transition-colors">
                         Upgrade to Premium →
                     </button>
                 </form>
@@ -141,11 +141,11 @@
 
     <!-- Billing History -->
     <div class="bg-white rounded-2xl p-6 card-shadow mb-6">
-        <h2 class="font-bold text-gray-900 mb-4">Billing History</h2>
+        <h2 class="font-bold text-stone-900 mb-4">Billing History</h2>
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="text-left text-xs text-gray-400 uppercase tracking-wide">
+                    <tr class="text-left text-xs text-stone-400 uppercase tracking-wide">
                         <th class="pb-3 pr-4">Date</th>
                         <th class="pb-3 pr-4">Description</th>
                         <th class="pb-3 pr-4">Amount</th>
@@ -155,9 +155,9 @@
                 <tbody class="divide-y divide-gray-100">
                     {% for bill in billing_history %}
                     <tr>
-                        <td class="py-3 pr-4 text-gray-600">{{ bill.date }}</td>
-                        <td class="py-3 pr-4 text-gray-800 font-medium">{{ bill.description }}</td>
-                        <td class="py-3 pr-4 text-gray-900 font-semibold">{{ bill.amount }}</td>
+                        <td class="py-3 pr-4 text-stone-600">{{ bill.date }}</td>
+                        <td class="py-3 pr-4 text-stone-800 font-medium">{{ bill.description }}</td>
+                        <td class="py-3 pr-4 text-stone-900 font-semibold">{{ bill.amount }}</td>
                         <td class="py-3"><span class="status-active px-2 py-0.5 rounded-full text-xs font-semibold">{{ bill.status }}</span></td>
                     </tr>
                     {% endfor %}
@@ -169,8 +169,8 @@
     <!-- Cancel -->
     {% if subscription %}
     <div class="bg-white rounded-2xl p-6 card-shadow border border-red-100" x-data="{ confirm: false }">
-        <h2 class="font-bold text-gray-900 mb-2">Cancel Subscription</h2>
-        <p class="text-gray-500 text-sm mb-4">You'll retain access until the end of your current billing period. Premium equipment must be returned if cancelled within 6 months of delivery.</p>
+        <h2 class="font-bold text-stone-900 mb-2">Cancel Subscription</h2>
+        <p class="text-stone-500 text-sm mb-4">You'll retain access until the end of your current billing period. Premium equipment must be returned if cancelled within 6 months of delivery.</p>
 
         <button x-show="!confirm" @click="confirm = true"
             class="px-6 py-2 rounded-xl text-sm font-semibold text-red-600 border-2 border-red-200 hover:bg-red-50 transition-colors">
@@ -182,7 +182,7 @@
             <form method="post" action="/subscription/cancel">
                 <button type="submit" class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-red-500 hover:bg-red-600 transition-colors">Yes, Cancel</button>
             </form>
-            <button @click="confirm = false" class="px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100 transition-colors">Keep Subscription</button>
+            <button @click="confirm = false" class="px-4 py-2 rounded-xl text-sm font-medium text-stone-600 hover:bg-gray-100 transition-colors">Keep Subscription</button>
         </div>
     </div>
     {% endif %}
