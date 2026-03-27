@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed – Forma Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto px-4 py-16 text-center page-enter">
+    <div class="bg-white rounded-3xl p-10 card-shadow-lg">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Order Confirmed!</h1>
+        <p class="text-gray-500 text-sm mb-6">Thank you for your purchase. You'll receive a confirmation email shortly.</p>
+
+        {% if order %}
+        <div class="bg-gray-50 rounded-xl p-4 mb-6 text-left">
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-gray-500">Order ID</span>
+                <span class="font-mono font-medium text-gray-800">#{{ order.id }}</span>
+            </div>
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-gray-500">Total</span>
+                <span class="font-bold text-dark-blue">${{ "%.2f"|format(order.total) }}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Status</span>
+                <span class="status-active px-2 py-0.5 rounded-full text-xs font-semibold">Confirmed</span>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="/marketplace" class="btn-secondary px-6 py-2.5 rounded-xl font-semibold text-sm">Continue Shopping</a>
+            <a href="/dashboard" class="btn-primary px-6 py-2.5 rounded-xl font-semibold text-sm">Go to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

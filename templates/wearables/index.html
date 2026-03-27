@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}Wearables – Forma Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 page-enter">
+
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Wearable Devices</h1>
+        <p class="text-gray-500 mt-1 text-sm">Sync your health devices for automatic workout tracking</p>
+    </div>
+
+    {% if success %}
+    <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        {{ success }}
+    </div>
+    {% endif %}
+
+    {% if not is_premium %}
+    <div class="bg-gradient-to-br from-navy to-dark-blue rounded-3xl p-10 text-center text-white">
+        <div class="text-6xl mb-4">⌚</div>
+        <h2 class="text-2xl font-bold mb-3">Premium Feature</h2>
+        <p class="text-white/70 max-w-md mx-auto mb-6 text-sm leading-relaxed">
+            Connect your Apple Watch, Google Fit, Samsung Health, or Garmin device to automatically sync workouts and track your progress.
+        </p>
+        <a href="/subscription" class="btn-primary px-8 py-3 rounded-xl font-semibold inline-block">Upgrade to Premium</a>
+    </div>
+    {% else %}
+
+    <!-- Demo Notice -->
+    <div class="mb-5 p-3 bg-blue-50 border border-blue-200 rounded-xl flex items-start gap-2">
+        <svg class="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="text-xs text-blue-700">Activity data shown is simulated. In production, this connects to real HealthKit / Google Fit / Samsung Health APIs.</p>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="stat-card text-center">
+            <div class="text-2xl mb-1">👟</div>
+            <div class="text-2xl font-bold text-gray-900">{{ "{:,}".format(total_steps) }}</div>
+            <div class="text-xs text-gray-500 mt-0.5">Steps This Week</div>
+        </div>
+        <div class="stat-card text-center">
+            <div class="text-2xl mb-1">⚡</div>
+            <div class="text-2xl font-bold text-gray-900">{{ active_minutes }}</div>
+            <div class="text-xs text-gray-500 mt-0.5">Active Minutes</div>
+        </div>
+        <div class="stat-card text-center">
+            <div class="text-2xl mb-1">🔥</div>
+            <div class="text-2xl font-bold text-gray-900">{{ calories_week }}</div>
+            <div class="text-xs text-gray-500 mt-0.5">Calories Burned</div>
+        </div>
+        <div class="stat-card text-center">
+            <div class="text-2xl mb-1">❤️</div>
+            <div class="text-2xl font-bold text-gray-900">{{ avg_heart_rate }}</div>
+            <div class="text-xs text-gray-500 mt-0.5">Avg Heart Rate</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Devices -->
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="font-bold text-gray-900">Connected Devices</h2>
+                <button hx-get="/wearables/sync" hx-target="#activity-feed" hx-swap="innerHTML"
+                    class="text-xs text-teal hover:text-dark-blue font-medium flex items-center gap-1 px-3 py-1.5 bg-teal-50 rounded-lg transition-colors">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Sync Now
+                </button>
+            </div>
+
+            <!-- Available Devices to Connect -->
+            {% set connected_types = devices | map(attribute='device_type') | list %}
+            <div class="space-y-3">
+                {% for dev_type, dev_label in [('apple_watch', 'Apple Watch / HealthKit'), ('google_fit', 'Google Fit'), ('samsung_health', 'Samsung Health'), ('garmin', 'Garmin Connect')] %}
+                {% set dev_icon = device_icons.get(dev_type, '⌚') %}
+
+                {% set device = namespace(found=None) %}
+                {% for d in devices %}
+                    {% if d.device_type == dev_type %}
+                        {% set device.found = d %}
+                    {% endif %}
+                {% endfor %}
+
+                <div class="device-card {% if device.found and device.found.is_active %}connected{% endif %}">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">{{ dev_icon }}</span>
+                            <div>
+                                <p class="font-semibold text-gray-900 text-sm">{{ dev_label }}</p>
+                                {% if device.found and device.found.is_active %}
+                                <p class="text-xs text-teal">Connected • Synced {{ device.found.last_sync_at.strftime('%b %d at %H:%M') if device.found.last_sync_at else 'recently' }}</p>
+                                {% else %}
+                                <p class="text-xs text-gray-400">Not connected</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if device.found and device.found.is_active %}
+                        <form method="post" action="/wearables/disconnect/{{ device.found.id }}">
+                            <button type="submit" class="text-xs text-red-400 hover:text-red-600 font-medium px-3 py-1 rounded-lg border border-red-200 hover:bg-red-50 transition-colors">
+                                Disconnect
+                            </button>
+                        </form>
+                        {% else %}
+                        <form method="post" action="/wearables/connect">
+                            <input type="hidden" name="device_type" value="{{ dev_type }}">
+                            <button type="submit" class="text-xs text-teal hover:text-dark-blue font-medium px-3 py-1 rounded-lg border border-teal-200 hover:bg-teal-50 transition-colors">
+                                Connect
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+            <h2 class="font-bold text-gray-900 mb-4">Recent Activity</h2>
+            <div id="activity-feed">
+                {% if mock_activities %}
+                <div class="space-y-1">
+                    {% for activity in mock_activities %}
+                    <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-0">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-teal-100 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                                {% if 'Pilates' in activity.type %}🧘
+                                {% elif 'Walk' in activity.type %}🚶
+                                {% elif 'Yoga' in activity.type %}🌿
+                                {% else %}🏃{% endif %}
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800 text-sm">{{ activity.type }}</p>
+                                <p class="text-xs text-gray-500">{{ activity.date }} • {{ activity.duration }} min</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-semibold text-teal">{{ activity.calories }} cal</p>
+                            <p class="text-xs text-gray-400">♥ {{ activity.heart_rate_avg }} bpm</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <div class="text-4xl mb-3">📊</div>
+                    <p class="text-sm text-gray-500">No activity data yet. Connect a device to start tracking.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

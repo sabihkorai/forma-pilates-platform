@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}Equipment Kit – Forma Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 page-enter">
+
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Equipment Kit</h1>
+        <p class="text-gray-500 mt-1 text-sm">Your complimentary $200 premium pilates kit</p>
+    </div>
+
+    {% if success %}
+    <div class="mb-4 p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        {{ success }}
+    </div>
+    {% endif %}
+
+    {% if not is_premium %}
+    <!-- Not Premium -->
+    <div class="bg-gradient-to-br from-navy to-dark-blue rounded-3xl p-10 text-center text-white">
+        <div class="text-6xl mb-4">📦</div>
+        <h2 class="text-2xl font-bold mb-3">Premium Exclusive</h2>
+        <p class="text-white/70 max-w-md mx-auto mb-6 text-sm leading-relaxed">
+            Premium members receive a complimentary $200 equipment kit including a pilates mat, resistance bands, magic ring, grip socks, and foam roller. Equipment becomes yours after 6 months of active subscription.
+        </p>
+        <a href="/subscription" class="btn-primary px-8 py-3 rounded-xl font-semibold inline-block">Upgrade to Premium</a>
+    </div>
+
+    {% elif not equipment_loan %}
+    <!-- No loan yet - Request form -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Kit Contents -->
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+            <h2 class="font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="text-2xl">📦</span> What's in Your Kit
+            </h2>
+            <div class="space-y-3">
+                {% for item in equipment_list %}
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                    <div class="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <span class="text-sm text-gray-700 font-medium">{{ item }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
+                <p class="text-xs text-amber-700 font-medium">💰 Total value: <strong>$200</strong> — included FREE with your Premium plan</p>
+            </div>
+        </div>
+
+        <!-- Request Form -->
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+            <h2 class="font-bold text-gray-900 mb-2">Claim Your Kit</h2>
+            <p class="text-sm text-gray-500 mb-4">Enter your delivery address and we'll ship your kit within 2 business days.</p>
+
+            <form method="post" action="/equipment/request" class="space-y-4">
+                <div>
+                    <label class="form-label">Shipping Address</label>
+                    <textarea name="shipping_address" rows="4" required
+                        placeholder="123 Main Street&#10;Apartment 4B&#10;New York, NY 10001"
+                        class="form-input text-sm resize-none"></textarea>
+                </div>
+
+                <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl">
+                    <p class="text-xs text-blue-700 leading-relaxed">
+                        <strong>Ownership Policy:</strong> Equipment is on loan. After 6 months of active Premium subscription, ownership transfers to you automatically. If you cancel before 6 months, the kit must be returned.
+                    </p>
+                </div>
+
+                <button type="submit" class="btn-primary w-full py-3 rounded-xl font-semibold">
+                    📦 Request My Equipment Kit
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- Loan active - Status tracking -->
+    <div class="space-y-6">
+
+        <!-- Status Card -->
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="font-bold text-gray-900">Shipment Status</h2>
+                <span class="px-3 py-1 rounded-full text-sm font-semibold
+                    {% if equipment_loan.status == 'delivered' or equipment_loan.status == 'owned' %}status-active
+                    {% elif equipment_loan.status == 'shipped' %}status-shipped
+                    {% elif equipment_loan.status == 'pending' %}status-pending
+                    {% else %}status-cancelled{% endif %}">
+                    {{ equipment_loan.status | title }}
+                </span>
+            </div>
+
+            <!-- Timeline -->
+            <div class="space-y-4">
+                {% set steps = [
+                    ('ordered', 'Order Placed', 'Kit requested successfully', 'bg-green-500'),
+                    ('shipped', 'Shipped', equipment_loan.shipped_date.strftime('%b %d, %Y') if equipment_loan.shipped_date else 'Estimated 2 business days', 'bg-blue-500'),
+                    ('delivered', 'Delivered', equipment_loan.delivered_date.strftime('%b %d, %Y') if equipment_loan.delivered_date else 'Estimated 5–7 business days', 'bg-teal'),
+                    ('owned', 'Ownership Transfer', 'After 6 months of active subscription', 'bg-amber-500')
+                ] %}
+                {% set status_order = ['pending', 'ordered', 'shipped', 'delivered', 'owned'] %}
+                {% set current_idx = status_order.index(equipment_loan.status) if equipment_loan.status in status_order else 0 %}
+
+                {% for step_key, step_title, step_desc, step_color in steps %}
+                {% set step_idx = loop.index %}
+                <div class="flex items-start gap-4">
+                    <div class="flex flex-col items-center flex-shrink-0">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center
+                            {% if step_idx <= current_idx %}{{ step_color }} text-white{% else %}bg-gray-100 text-gray-400{% endif %}">
+                            {% if step_idx <= current_idx %}
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            {% else %}
+                            <span class="text-sm font-bold">{{ loop.index }}</span>
+                            {% endif %}
+                        </div>
+                        {% if not loop.last %}
+                        <div class="w-0.5 h-8 {% if step_idx < current_idx %}bg-teal{% else %}bg-gray-200{% endif %} mt-1"></div>
+                        {% endif %}
+                    </div>
+                    <div class="pb-4">
+                        <p class="font-semibold text-gray-900 text-sm">{{ step_title }}</p>
+                        <p class="text-xs text-gray-500 mt-0.5">{{ step_desc }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Ownership Countdown -->
+        {% if days_until_ownership and days_until_ownership > 0 %}
+        <div class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="text-3xl">🎉</div>
+                <div>
+                    <h3 class="font-bold text-amber-900">Ownership Transfer</h3>
+                    <p class="text-sm text-amber-700">Keep subscribing to own your equipment!</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex-1">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ [(180 - days_until_ownership) / 180 * 100, 0] | max }}%; background: linear-gradient(90deg, #f59e0b, #f97316)"></div>
+                    </div>
+                </div>
+                <span class="text-lg font-bold text-amber-700 flex-shrink-0">{{ days_until_ownership }} days</span>
+            </div>
+            <p class="text-xs text-amber-600 mt-2">
+                Ownership transfers on {{ ownership_date.strftime('%B %d, %Y') if ownership_date else 'N/A' }}
+            </p>
+        </div>
+        {% elif equipment_loan.status == 'owned' %}
+        <div class="bg-gradient-to-br from-green-50 to-teal-50 border border-green-200 rounded-2xl p-6 text-center">
+            <div class="text-5xl mb-3">🏆</div>
+            <h3 class="font-bold text-green-900 text-lg mb-1">It's Yours!</h3>
+            <p class="text-sm text-green-700">Your equipment kit has been fully transferred to your ownership. Keep up the amazing pilates journey!</p>
+        </div>
+        {% endif %}
+
+        <!-- Kit Contents -->
+        <div class="bg-white rounded-2xl p-6 card-shadow">
+            <h2 class="font-bold text-gray-900 mb-4">Kit Contents</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {% for item in equipment_list %}
+                <div class="flex items-center gap-2 p-2 text-sm text-gray-700">
+                    <svg class="w-4 h-4 text-teal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    {{ item }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

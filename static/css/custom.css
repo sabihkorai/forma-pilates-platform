@@ -1,0 +1,307 @@
+/* ============================================
+   FORMA PILATES - Custom Styles
+   ============================================ */
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #1C7293; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #065A82; }
+
+/* Base button styles */
+.btn-primary {
+    background: linear-gradient(135deg, #028090, #00A896);
+    color: white;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #1C7293, #028090);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(2,128,144,0.4);
+}
+
+.btn-secondary {
+    background: white;
+    color: #065A82;
+    border: 2px solid #1C7293;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.btn-secondary:hover {
+    background: #065A82;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Nav link styles */
+.nav-link {
+    color: #9ca3af;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    text-decoration: none;
+}
+.nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+.nav-link-active { color: white !important; background: rgba(255,255,255,0.15); }
+
+.mobile-nav-link {
+    display: block;
+    padding: 0.625rem 0.75rem;
+    color: #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+    text-decoration: none;
+}
+.mobile-nav-link:hover { color: white; background: rgba(255,255,255,0.1); }
+
+/* Tier badges */
+.tier-badge-premium {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: #78350f;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 20px;
+    display: inline-block;
+}
+.tier-badge-basic {
+    background: linear-gradient(135deg, #1C7293, #028090);
+    color: white;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Difficulty badges */
+.badge-beginner { background: #dcfce7; color: #166534; }
+.badge-intermediate { background: #fef9c3; color: #713f12; }
+.badge-advanced { background: #fee2e2; color: #991b1b; }
+
+/* Video card */
+.video-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+.video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+.video-card .thumbnail-wrap { position: relative; overflow: hidden; }
+.video-card .thumbnail-wrap img { transition: transform 0.3s ease; }
+.video-card:hover .thumbnail-wrap img { transform: scale(1.05); }
+.video-card .play-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.2s ease;
+}
+.video-card:hover .play-overlay { opacity: 1; }
+
+/* Product card */
+.product-card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+}
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #028090, #00A896);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Hero gradient */
+.hero-gradient {
+    background: linear-gradient(135deg, #21295C 0%, #065A82 50%, #1C7293 100%);
+}
+
+/* Section gradient */
+.section-gradient {
+    background: linear-gradient(135deg, #065A82, #028090);
+}
+
+/* Card shadow */
+.card-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+}
+.card-shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+}
+
+/* Progress bars */
+.progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #028090, #00A896);
+    transition: width 0.6s ease;
+}
+
+/* Stats cards */
+.stat-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease;
+}
+.stat-card:hover { transform: translateY(-2px); }
+
+/* Form inputs */
+.form-input {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    transition: all 0.15s ease;
+    background: white;
+    color: #111827;
+}
+.form-input:focus {
+    outline: none;
+    border-color: #1C7293;
+    box-shadow: 0 0 0 3px rgba(28,114,147,0.15);
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.375rem;
+}
+
+/* Status badges */
+.status-active { background: #dcfce7; color: #166534; }
+.status-pending { background: #fef9c3; color: #92400e; }
+.status-cancelled { background: #fee2e2; color: #991b1b; }
+.status-shipped { background: #dbeafe; color: #1e40af; }
+
+/* Floating animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+.float-animation { animation: float 4s ease-in-out infinite; }
+
+/* Pulse for live indicators */
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+/* Loading spinner */
+.spinner {
+    width: 24px; height: 24px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #028090;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* HTMX request indicator */
+.htmx-indicator { display: none; }
+.htmx-request .htmx-indicator { display: flex; }
+.htmx-request.htmx-indicator { display: flex; }
+
+/* Activity day dots */
+.day-dot-active {
+    background: linear-gradient(135deg, #028090, #00A896);
+    color: white;
+}
+.day-dot-inactive { background: #f3f4f6; color: #9ca3af; }
+
+/* Streak counter */
+.streak-badge {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: #78350f;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+}
+
+/* Premium feature lock */
+.premium-lock {
+    position: absolute; inset: 0;
+    background: rgba(33,41,92,0.85);
+    backdrop-filter: blur(3px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border-radius: inherit;
+    z-index: 10;
+}
+
+/* Responsive image grid */
+.img-cover { object-fit: cover; width: 100%; height: 100%; }
+
+/* Equipment timeline */
+.timeline-step { position: relative; }
+.timeline-step::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    bottom: -20px;
+    width: 2px;
+    background: #e5e7eb;
+}
+.timeline-step:last-child::before { display: none; }
+.timeline-step.completed::before { background: #028090; }
+
+/* Page transition */
+.page-enter { animation: fadeInUp 0.3s ease; }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Wearable device card */
+.device-card {
+    border: 2px solid #e5e7eb;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+}
+.device-card.connected {
+    border-color: #028090;
+    background: #f0fdfc;
+}
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+}

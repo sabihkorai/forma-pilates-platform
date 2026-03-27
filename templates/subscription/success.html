@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Subscription Activated – Forma Pilates{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto px-4 py-16 text-center page-enter">
+    <div class="bg-white rounded-3xl p-10 card-shadow-lg">
+        <div class="w-20 h-20 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+            </svg>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Welcome to {{ subscription.plan_type | title if subscription else 'Forma' }}!</h1>
+        <p class="text-gray-500 text-sm mb-6">Your subscription is now active. Let's start your transformation journey.</p>
+
+        {% if subscription %}
+        <div class="bg-gray-50 rounded-xl p-4 mb-6 text-left">
+            <div class="flex justify-between text-sm mb-2">
+                <span class="text-gray-500">Plan</span>
+                <span class="font-bold text-gray-900">{{ subscription.plan_type | title }}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Next billing</span>
+                <span class="font-medium text-gray-800">{{ subscription.renewal_date.strftime('%B %d, %Y') if subscription.renewal_date else 'N/A' }}</span>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="flex flex-col gap-3">
+            <a href="/videos" class="btn-primary px-6 py-3 rounded-xl font-semibold">Start Watching Videos →</a>
+            {% if is_premium %}
+            <a href="/meal-plans" class="btn-secondary px-6 py-3 rounded-xl font-semibold text-sm">Generate AI Meal Plan</a>
+            <a href="/equipment" class="text-sm text-med-blue hover:text-dark-blue font-medium py-1">Request Equipment Kit →</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
